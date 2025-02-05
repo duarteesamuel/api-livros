@@ -8,12 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.duarte.api_livros.entities.Livro;
+import com.duarte.api_livros.exceptions.LivroException;
 import com.duarte.api_livros.services.LivroService;
 
 @RestController
@@ -23,38 +25,45 @@ public class LivroController {
 	@Autowired
 	private LivroService livroService;
 	
-	@GetMapping(value = "/listar")
-	public ResponseEntity<List<?>> listarLivros(){
+	@PostMapping(value = "/adicionar")
+	public ResponseEntity<?> adicionarLivro(@RequestBody Livro livro){
 		
-		List<Livro> livros = livroService.findAll();
-		
-		return ResponseEntity.ok().body(livros);
+		livroService.adicionarLivro(livro);
+		return ResponseEntity.ok().body("Livro cadastrado com sucesso.");
 	}
 	
 	@GetMapping(value = "/buscar/{id}")
-	public ResponseEntity<?> buscarPorId(@PathVariable Long id){
+	public ResponseEntity<?> buscarLivro(@PathVariable Long id){
 		
-		Livro livro = livroService.buscarLivroPorId(id);
+		Livro livro = livroService.buscarLivro(id);
 		
 		return ResponseEntity.ok().body(livro);
 	}
 	
 	@DeleteMapping(value = "/deletar/{id}")
-	public ResponseEntity<?> deletarPorId(@PathVariable Long id){
+	public ResponseEntity<?> deletarLivro(@PathVariable Long id){
 		
-		livroService.deletarLivroPorId(id);
+		livroService.deletarLivro(id);
 		
 		return ResponseEntity.status(HttpStatus.OK).body("Livro deletado com sucesso.");
 	}
 	
 	
 	@PutMapping(value = "/atualizar/{id}")
-	public ResponseEntity<?> atualizarLivroPorId(@PathVariable Long id,
+	public ResponseEntity<?> atualizarLivro(@PathVariable Long id,
 			@RequestBody Livro livroAtualizado){
 		
 		Livro livro = livroService.atualizarLivro(id, livroAtualizado);
 		
 		return ResponseEntity.ok().body(livro);
+	}
+	
+	@GetMapping(value = "/listar")
+	public ResponseEntity<List<?>> listarLivros(){
+		
+		List<Livro> livros = livroService.listarLivros();
+		
+		return ResponseEntity.ok().body(livros);
 	}
 	
 	
