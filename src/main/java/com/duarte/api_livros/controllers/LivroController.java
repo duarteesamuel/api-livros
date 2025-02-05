@@ -1,11 +1,11 @@
 package com.duarte.api_livros.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,16 +19,18 @@ public class LivroController {
 	@Autowired
 	private LivroService livroService;
 	
-	@PostMapping(value = "/adicionar")
-	public ResponseEntity<?> adicionarLivro(@RequestBody Livro livro){
-		livroService.adicionarLivro(livro);
+	@GetMapping(value = "/listar")
+	public ResponseEntity<List<Livro>> listarLivros(){
+		List<Livro> livros = livroService.findAll();
 		
-		return ResponseEntity.status(HttpStatus.CREATED).body(livro);
+		return ResponseEntity.ok().body(livros);
 	}
 	
-	@GetMapping(value = "/listar")
-	public ResponseEntity<?> listarLivros(){
-		return ResponseEntity.status(HttpStatus.OK).body(livroService.listarLivros());
+	@GetMapping(value = "/buscar/{id}")
+	public ResponseEntity<Livro> buscarPorId(@PathVariable Long id){
+		Livro livro = livroService.findById(id);
+		
+		return ResponseEntity.ok().body(livro);
 	}
 	
 }

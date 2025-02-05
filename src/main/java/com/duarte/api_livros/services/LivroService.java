@@ -1,33 +1,29 @@
 package com.duarte.api_livros.services;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.duarte.api_livros.entities.Livro;
+import com.duarte.api_livros.repositories.LivroRepository;
 
 @Service
 public class LivroService {
 	
-	private final List<Livro> livros = new ArrayList<>();
+	@Autowired
+	private LivroRepository livroRepository;
 	
 	//Methods
-	
-	public void adicionarLivro(Livro livro) {
-		livros.add(livro);
+	public List<Livro> findAll(){
+		return livroRepository.findAll();
 	}
 	
-	public List<Livro> listarLivros() {
-		livros.forEach(livro -> {
-			System.out.println(livro);
-		}); 
+	public Livro findById(Long id) {
+		Optional<Livro> livro = livroRepository.findById(id);
 		
-		return livros;
+		return livro.get();
 	}
-	
-	
-			
-	
 	
 }
