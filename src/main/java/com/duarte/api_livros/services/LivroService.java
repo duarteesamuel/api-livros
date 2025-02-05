@@ -17,4 +17,17 @@ public class LivroService {
 	public void adicionarLivro(Livro livro) {
 		livros.add(livro);
 	}
+	
+	public List<Livro> listarLivros() {
+		livros.forEach(livro -> {
+			System.out.println(livro);
+		}); 
+		
+		return livros;
+	}
+	
+	
+			
+	
+	
 }
