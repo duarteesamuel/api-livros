@@ -20,10 +20,26 @@ public class LivroService {
 		return livroRepository.findAll();
 	}
 	
-	public Livro findById(Long id) {
+	public void deletarLivroPorId(Long id) {
+		livroRepository.deleteById(id);
+	}
+	
+	public Livro buscarLivroPorId(Long id) {
 		Optional<Livro> livro = livroRepository.findById(id);
 		
 		return livro.get();
+	}
+	
+	public Livro atualizarLivro(Long id, Livro livroAtualizado) {
+		Livro livroExistente = buscarLivroPorId(id);
+		
+		livroExistente.setTitulo(livroAtualizado.getTitulo());
+		livroExistente.setAutor(livroAtualizado.getAutor());
+		livroExistente.setAnoFabricacao(livroAtualizado.getAnoFabricacao());
+		livroExistente.setCategoria(livroAtualizado.getCategoria());
+		livroExistente.setDisponibilidade(livroAtualizado.getDisponibilidade());
+		
+		return livroRepository.save(livroExistente);
 	}
 	
 }
