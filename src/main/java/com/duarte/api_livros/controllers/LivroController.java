@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.duarte.api_livros.entities.Livro;
-import com.duarte.api_livros.exceptions.LivroException;
 import com.duarte.api_livros.services.LivroService;
 
 @RestController
@@ -47,7 +46,6 @@ public class LivroController {
 		
 		return ResponseEntity.status(HttpStatus.OK).body("Livro deletado com sucesso.");
 	}
-	
 	
 	@PutMapping(value = "/atualizar/{id}")
 	public ResponseEntity<?> atualizarLivro(@PathVariable Long id,
