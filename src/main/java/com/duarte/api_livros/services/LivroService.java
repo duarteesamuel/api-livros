@@ -46,6 +46,10 @@ public class LivroService {
 		return livroRepository.findByCategoria(categoria);
 	}
 	
+	public List<Livro> findByAutor(String autor){
+		return livroRepository.findByAutor(autor);
+	}
+	
 	public List<Livro> listarLivros(){
 		return livroRepository.findAll();
 	}

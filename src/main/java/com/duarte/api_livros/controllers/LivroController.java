@@ -64,6 +64,13 @@ public class LivroController {
 		 return ResponseEntity.ok().body(livros);
 	}
 	
+	@GetMapping(value = "/autor")
+	public ResponseEntity<?> buscarLivroPorAutor(@RequestParam String autor){
+		List<Livro> livros = livroService.findByAutor(autor);
+		
+		return ResponseEntity.ok().body(livros);
+	}
+	
 	@GetMapping
 	public ResponseEntity<List<?>> listarLivros(){
 		
