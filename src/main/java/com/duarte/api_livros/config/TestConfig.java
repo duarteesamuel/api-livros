@@ -38,7 +38,19 @@ public class TestConfig implements CommandLineRunner{
 				"Psicologia",
 				"Em estoque");
 		
-		livroRepository.saveAll(Arrays.asList(livro1, livro2, livro3));
+		Livro livro4 = new Livro(null, "A Viagem no Tempo",
+				"Fernanda Silva",
+				LocalDate.now(),
+				"Aventura",
+				"Pré-venda");
+		
+		Livro livro5 = new Livro(null, "Cozinhando com Sabor",
+				"Ana Ribeiro",
+				LocalDate.now(),
+				"Culinária",
+				"Em Estoque");
+		
+		livroRepository.saveAll(Arrays.asList(livro1, livro2, livro3, livro4, livro5));
 		
 	}
 	

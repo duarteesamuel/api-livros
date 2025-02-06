@@ -42,6 +42,10 @@ public class LivroService {
 		return livroRepository.save(livroExistente);
 	}
 	
+	public List<Livro> findByCategoria(String categoria){
+		return livroRepository.findByCategoria(categoria);
+	}
+	
 	public List<Livro> listarLivros(){
 		return livroRepository.findAll();
 	}

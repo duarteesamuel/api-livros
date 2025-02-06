@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.duarte.api_livros.entities.Livro;
@@ -56,7 +57,14 @@ public class LivroController {
 		return ResponseEntity.ok().body(livro);
 	}
 	
-	@GetMapping(value = "/listar")
+	@GetMapping(value = "/categoria")
+	public ResponseEntity<?> buscarLivroPorCategoria(@RequestParam String categoria){
+		 List<Livro> livros = livroService.findByCategoria(categoria);
+		 
+		 return ResponseEntity.ok().body(livros);
+	}
+	
+	@GetMapping
 	public ResponseEntity<List<?>> listarLivros(){
 		
 		List<Livro> livros = livroService.listarLivros();
