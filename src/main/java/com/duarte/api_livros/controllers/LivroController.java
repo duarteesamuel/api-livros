@@ -20,6 +20,8 @@ import com.duarte.api_livros.dtos.LivroDTO;
 import com.duarte.api_livros.entities.Livro;
 import com.duarte.api_livros.services.LivroService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/livros")
 public class LivroController {
@@ -28,7 +30,7 @@ public class LivroController {
 	private LivroService livroService;
 	
 	@PostMapping
-	public ResponseEntity<?> adicionarLivro(@RequestBody Livro livro){
+	public ResponseEntity<?> adicionarLivro(@RequestBody @Valid Livro livro){
 		
 		livroService.adicionarLivro(livro);
 		return ResponseEntity.ok().body("Livro cadastrado com sucesso.");
@@ -52,7 +54,7 @@ public class LivroController {
 	
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<?> atualizarLivro(@PathVariable Long id,
-			@RequestBody Livro livroAtualizado){
+			@RequestBody @Valid Livro livroAtualizado){
 		
 		Livro livro = livroService.atualizarLivro(id, livroAtualizado);
 		

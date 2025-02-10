@@ -30,24 +30,23 @@ public class Livro {
 	private Long id;
 	
 	@Column(name = "titulo")
-	@NotNull(message = "O título não pode ser nulo.")
-	@Size(min = 3, max = 100, message = "O título deve ter entre 3 a 100 caracteres.")
+	@NotNull(message = "não pode ser nulo.")
 	private String titulo;
 	
 	@Column(name = "autor")
-	@NotNull(message = "O título não pode ser nulo.")
+	@NotNull(message = "não pode ser nulo.")
 	@Size(min = 3, max = 50, message = "O autor deve ter entre 3 a 50 caracteres.")
 	private String autor;
 	
 	@Column(name = "ano_fabricacao")
-	@PastOrPresent(message = "O ano não pode ser maior queo ano atual.")
+	@PastOrPresent(message = "não pode ser maior queo ano atual.")
 	private LocalDate anoFabricacao;
 	
 	@Column(name = "categoria")
-	@NotNull(message = "A categoria não pode ser nula.")
+	@NotNull(message = "não pode ser nula.")
 	private String categoria;
 	
 	@Column(name = "disponibilidade")
-	@NotNull(message = "A disponibilidade não pode ser nula.")
+	@NotNull(message = "não pode ser nula.")
 	private String disponibilidade;
 }
