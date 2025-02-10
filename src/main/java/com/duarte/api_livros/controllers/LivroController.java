@@ -78,13 +78,7 @@ public class LivroController {
 	@GetMapping
 	public ResponseEntity<?> listarLivros(){
 		
-		List<Livro> livros = livroService.listarLivros();
-		
-		List<LivroDTO> livrosDTO = livros.stream()
-				.map(LivroDTO::fromEntity)
-				.collect(Collectors.toList());
-		
-		return ResponseEntity.ok().body(livrosDTO);
+		return ResponseEntity.ok().body(livroService.listarLivros());
 		
 	}
 }

@@ -8,7 +8,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.duarte.api_livros.entities.Cliente;
 import com.duarte.api_livros.entities.Livro;
+import com.duarte.api_livros.repositories.ClienteRepository;
 import com.duarte.api_livros.repositories.LivroRepository;
 
 @Configuration
@@ -17,6 +19,9 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private LivroRepository livroRepository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository; 
 	
 	public void run(String... args) throws Exception{
 		
@@ -52,6 +57,11 @@ public class TestConfig implements CommandLineRunner{
 		
 		livroRepository.saveAll(Arrays.asList(livro1, livro2, livro3, livro4, livro5));
 		
+		
+		Cliente cliente1 = new Cliente(null, "Samuel Duarte", "123.456.789-11");
+		Cliente cliente2 = new Cliente(null, "Gabriela Fontenele", "123.654.888-01");
+		
+		clienteRepository.saveAll(Arrays.asList(cliente1, cliente2));
 	}
 	
 }
