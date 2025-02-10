@@ -35,11 +35,9 @@ public class Livro {
 	
 	@Column(name = "autor")
 	@NotNull(message = "não pode ser nulo.")
-	@Size(min = 3, max = 50, message = "O autor deve ter entre 3 a 50 caracteres.")
 	private String autor;
 	
 	@Column(name = "ano_fabricacao")
-	@PastOrPresent(message = "não pode ser maior queo ano atual.")
 	private LocalDate anoFabricacao;
 	
 	@Column(name = "categoria")

@@ -30,7 +30,7 @@ public class LivroController {
 	private LivroService livroService;
 	
 	@PostMapping
-	public ResponseEntity<?> adicionarLivro(@RequestBody @Valid Livro livro){
+	public ResponseEntity<?> adicionarLivro(@Valid @RequestBody Livro livro){
 		
 		livroService.adicionarLivro(livro);
 		return ResponseEntity.ok().body("Livro cadastrado com sucesso.");
@@ -54,7 +54,7 @@ public class LivroController {
 	
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<?> atualizarLivro(@PathVariable Long id,
-			@RequestBody @Valid Livro livroAtualizado){
+			@Valid @RequestBody Livro livroAtualizado){
 		
 		Livro livro = livroService.atualizarLivro(id, livroAtualizado);
 		
