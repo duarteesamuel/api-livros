@@ -9,6 +9,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,18 +29,25 @@ public class Livro {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "titulo", nullable = false)
+	@Column(name = "titulo")
+	@NotNull(message = "O título não pode ser nulo.")
+	@Size(min = 3, max = 100, message = "O título deve ter entre 3 a 100 caracteres.")
 	private String titulo;
 	
-	@Column(name = "autor", nullable = false)
+	@Column(name = "autor")
+	@NotNull(message = "O título não pode ser nulo.")
+	@Size(min = 3, max = 50, message = "O autor deve ter entre 3 a 50 caracteres.")
 	private String autor;
 	
-	@Column(name = "ano_fabricacao", nullable = false)
+	@Column(name = "ano_fabricacao")
+	@PastOrPresent(message = "O ano não pode ser maior queo ano atual.")
 	private LocalDate anoFabricacao;
 	
-	@Column(name = "categoria", nullable = false)
+	@Column(name = "categoria")
+	@NotNull(message = "A categoria não pode ser nula.")
 	private String categoria;
 	
-	@Column(name = "disponibilidade", nullable = false)
+	@Column(name = "disponibilidade")
+	@NotNull(message = "A disponibilidade não pode ser nula.")
 	private String disponibilidade;
 }
