@@ -3,6 +3,7 @@ package com.duarte.api_livros.entities;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,9 +26,18 @@ public class Livro {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column(name = "titulo", nullable = false)
 	private String titulo;
+	
+	@Column(name = "autor", nullable = false)
 	private String autor;
+	
+	@Column(name = "ano_fabricacao", nullable = false)
 	private LocalDate anoFabricacao;
+	
+	@Column(name = "categoria", nullable = false)
 	private String categoria;
+	
+	@Column(name = "disponibilidade", nullable = false)
 	private String disponibilidade;
 }

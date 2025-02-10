@@ -1,6 +1,7 @@
 package com.duarte.api_livros.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.duarte.api_livros.dtos.LivroDTO;
 import com.duarte.api_livros.entities.Livro;
 import com.duarte.api_livros.services.LivroService;
 
@@ -25,14 +27,14 @@ public class LivroController {
 	@Autowired
 	private LivroService livroService;
 	
-	@PostMapping(value = "/adicionar")
+	@PostMapping
 	public ResponseEntity<?> adicionarLivro(@RequestBody Livro livro){
 		
 		livroService.adicionarLivro(livro);
 		return ResponseEntity.ok().body("Livro cadastrado com sucesso.");
 	}
 	
-	@GetMapping(value = "/buscar/{id}")
+	@GetMapping(value = "/{id}")
 	public ResponseEntity<?> buscarLivro(@PathVariable Long id){
 		
 		Livro livro = livroService.buscarLivro(id);
@@ -40,7 +42,7 @@ public class LivroController {
 		return ResponseEntity.ok().body(livro);
 	}
 	
-	@DeleteMapping(value = "/deletar/{id}")
+	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<?> deletarLivro(@PathVariable Long id){
 		
 		livroService.deletarLivro(id);
@@ -48,7 +50,7 @@ public class LivroController {
 		return ResponseEntity.status(HttpStatus.OK).body("Livro deletado com sucesso.");
 	}
 	
-	@PutMapping(value = "/atualizar/{id}")
+	@PutMapping(value = "/{id}")
 	public ResponseEntity<?> atualizarLivro(@PathVariable Long id,
 			@RequestBody Livro livroAtualizado){
 		
@@ -57,14 +59,14 @@ public class LivroController {
 		return ResponseEntity.ok().body(livro);
 	}
 	
-	@GetMapping(value = "/categoria")
+	@GetMapping(params = "categoria")
 	public ResponseEntity<?> buscarLivroPorCategoria(@RequestParam String categoria){
 		 List<Livro> livros = livroService.findByCategoria(categoria);
 		 
 		 return ResponseEntity.ok().body(livros);
 	}
 	
-	@GetMapping(value = "/autor")
+	@GetMapping(params = "autor")
 	public ResponseEntity<?> buscarLivroPorAutor(@RequestParam String autor){
 		List<Livro> livros = livroService.findByAutor(autor);
 		
@@ -72,13 +74,15 @@ public class LivroController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<?>> listarLivros(){
+	public ResponseEntity<?> listarLivros(){
 		
 		List<Livro> livros = livroService.listarLivros();
 		
-		return ResponseEntity.ok().body(livros);
+		List<LivroDTO> livrosDTO = livros.stream()
+				.map(LivroDTO::fromEntity)
+				.collect(Collectors.toList());
+		
+		return ResponseEntity.ok().body(livrosDTO);
+		
 	}
-	
-	
-	
 }
