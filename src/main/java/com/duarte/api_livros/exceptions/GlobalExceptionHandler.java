@@ -27,4 +27,12 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(mensagemErro, HttpStatus.BAD_REQUEST);
 	}
 	
+	@ExceptionHandler(AluguelException.class)
+	public ResponseEntity<?> handleAluguelException(AluguelException e){
+		StringBuilder mensagemErro = new StringBuilder("Erro no aluguel: ");
+		mensagemErro.append(e.getMessage());
+		
+		return new ResponseEntity<>(mensagemErro, HttpStatus.BAD_REQUEST);
+	}
+	
 }
