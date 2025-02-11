@@ -101,7 +101,14 @@ public class TestConfig implements CommandLineRunner{
         		.livro(livro2)
         		.build();
         
-        aluguelRepository.saveAll(Arrays.asList(aluguel1, aluguel2));
+        Aluguel aluguel3 = Aluguel.builder()
+        		.dataAluguel(LocalDate.now())
+        		.dataDevolucao(LocalDate.now().plusDays(7))
+        		.cliente(cliente2)
+        		.livro(livro3)
+        		.build();
+        
+        aluguelRepository.saveAll(Arrays.asList(aluguel1, aluguel2, aluguel3));
 	}
 		
 }

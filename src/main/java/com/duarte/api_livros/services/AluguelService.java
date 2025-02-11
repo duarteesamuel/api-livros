@@ -29,9 +29,13 @@ public class AluguelService {
 				.collect(Collectors.toList());
 	}
 	
-	public Aluguel buscarAluguel(Long id) {
-		return aluguelRepository.findById(id)
-				.orElseThrow(() -> new AluguelException("Nenhum aluguel correspondente ao id " + id));
-		
+	public List<Aluguel> buscarAlugueisPorCliente(Long clienteId) {
+	    List<Aluguel> alugueis = aluguelRepository.findByClienteId(clienteId);
+	    if (alugueis.isEmpty()) {
+	        throw new AluguelException("Nenhum aluguel encontrado para o cliente com id " + clienteId);
+	    }
+	    return alugueis;
 	}
+	
+	//Implementar método para não permitir alugueis de livros esgotados
 }
