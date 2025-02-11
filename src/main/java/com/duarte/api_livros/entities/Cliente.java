@@ -8,8 +8,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,20 +19,22 @@ import lombok.Setter;
 @Table(name = "tb_clientes")
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Getter
 @Setter
 public class Cliente {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_cliente")
 	private Long idCliente;
 	
 	@Column(name = "nome_cliente")
-	@NotNull(message = "Nome do cliente não pode ser nulo")
+	@NotBlank(message = "Nome do cliente não pode ser nulo")
 	private String nome;
 	
 	@Column(name = "cpf_cliente", unique = true)
-	@NotNull(message = "Cpf do cliente não pode ser nulo ou Repetido")
+	@NotBlank(message = "Cpf do cliente não pode ser vazio ou Repetido")
 	private String cpf;
 
 	@Override

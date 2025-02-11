@@ -9,20 +9,22 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
+
 @Entity
 @Table(name = "tb_livros")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Getter
+@Setter
 public class Livro {
 	
 	@Id
@@ -30,21 +32,22 @@ public class Livro {
 	private Long id;
 	
 	@Column(name = "titulo")
-	@NotNull(message = "não pode ser nulo.")
+	@NotBlank(message = "Título não pode ser vazio.")
 	private String titulo;
 	
 	@Column(name = "autor")
-	@NotNull(message = "não pode ser nulo.")
+	@NotBlank(message = "Autor não pode ser vazio.")
 	private String autor;
 	
 	@Column(name = "ano_fabricacao")
+	@PastOrPresent(message = "Data não pode ser posterior a data atual.")
 	private LocalDate anoFabricacao;
 	
 	@Column(name = "categoria")
-	@NotNull(message = "não pode ser nula.")
+	@NotBlank(message = "Categoria não pode ser vazia.")
 	private String categoria;
 	
 	@Column(name = "disponibilidade")
-	@NotNull(message = "não pode ser nula.")
+	@NotBlank(message = "Disponibilidade não pode ser nula.")
 	private String disponibilidade;
 }

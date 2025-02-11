@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.duarte.api_livros.entities.Livro;
-import com.duarte.api_livros.exceptions.BibliotecaException;
+import com.duarte.api_livros.exceptions.LivroException;
 import com.duarte.api_livros.repositories.LivroRepository;
 
 @Service
@@ -19,7 +19,6 @@ public class LivroService {
 	
 	//Methods
 	public void adicionarLivro(Livro livro) {
-		validarDados(livro);
 		livroRepository.save(livro);
 	}
 	
@@ -27,7 +26,7 @@ public class LivroService {
 		Optional<Livro> livroExistente = livroRepository.findById(id);
 		
 		if(!livroExistente.isPresent()) {
-			throw new BibliotecaException("Livro com ID " + id + " não foi encontrado");
+			throw new LivroException("Livro com ID " + id + " não foi encontrado");
 		}
 		
 		livroRepository.deleteById(id);
@@ -35,13 +34,11 @@ public class LivroService {
 	
 	public Livro buscarLivro(Long id) {
 		return livroRepository.findById(id)
-				.orElseThrow(() -> new BibliotecaException("Livro com id " + id + " não encontrado."));
+				.orElseThrow(() -> new LivroException("Livro com id " + id + " não encontrado."));
 	}
 	
 	public Livro atualizarLivro(Long id, Livro livroAtualizado) {
 		Livro livroExistente = buscarLivro(id);
-		
-		validarDados(livroAtualizado);
 		
 		livroExistente.setTitulo(livroAtualizado.getTitulo());
 		livroExistente.setAutor(livroAtualizado.getAutor());
@@ -56,7 +53,7 @@ public class LivroService {
 		List<Livro> livros = livroRepository.findByCategoria(categoria);
 		
 		if(livros.isEmpty()) {
-			throw new BibliotecaException("Nenhum livro encontrado na categoria " + categoria);
+			throw new LivroException("Nenhum livro encontrado na categoria " + categoria);
 		}
 		
 		return livroRepository.findByCategoria(categoria);
@@ -66,7 +63,7 @@ public class LivroService {
 		List<Livro> livros = livroRepository.findByAutor(autor);
 		
 		if(livros.isEmpty()) {
-			throw new BibliotecaException("Nenhum livro do autor " + autor);
+			throw new LivroException("Nenhum livro do autor " + autor);
 		}
 		
 		return livros;
@@ -76,31 +73,10 @@ public class LivroService {
 		List<Livro> livros = livroRepository.findAll();
 		
 		if(livros.isEmpty()) {
-			throw new BibliotecaException("A Biblioteca não tem nenhum livro.");
+			throw new LivroException("A Biblioteca não tem nenhum livro.");
 		}
 		return livros;
 	}
 	
-	private void validarDados(Livro livro) {
-		if(livro.getTitulo().isEmpty()) {
-			throw new BibliotecaException("Título não pode ser nulo ou vazio.");
-		}
-		if(livro.getAutor().isEmpty()) {
-			throw new BibliotecaException("Autor não pode ser nulo ou vazio.");
-		}
-		if(livro.getAnoFabricacao().isAfter(LocalDate.now())) {
-			throw new BibliotecaException("Data não pode ser posterior a data atual");
-		}
-		if(livro.getAnoFabricacao().isBefore(LocalDate.of(1900, 1, 1))) {
-			throw new BibliotecaException("O ano de fabricação não pode ser anterior a 1900.");
-		}
-		if(livro.getCategoria().isEmpty()) {
-			throw new BibliotecaException("Categoria não pode ser nula ou vazia.");
-		}
-		if(livro.getDisponibilidade().isEmpty()) {
-			throw new BibliotecaException("Disponibilidade não pode ser nula ou vazia.");
-		}
-		
-	}
 	
 }

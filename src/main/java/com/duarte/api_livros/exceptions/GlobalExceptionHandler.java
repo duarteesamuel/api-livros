@@ -11,9 +11,17 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 	
-	@ExceptionHandler(BibliotecaException.class)
-	public ResponseEntity<?> handleBibliotecaException(BibliotecaException e){
+	@ExceptionHandler(LivroException.class)
+	public ResponseEntity<?> handleBibliotecaException(LivroException e){
 		StringBuilder mensagemErro = new StringBuilder("Erro na biblioteca: ");
+		mensagemErro.append(e.getMessage());
+		
+		return new ResponseEntity<>(mensagemErro, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(ClienteException.class)
+	public ResponseEntity<?> handleClienteException(ClienteException e){
+		StringBuilder mensagemErro = new StringBuilder("Erro no cliente: ");
 		mensagemErro.append(e.getMessage());
 		
 		return new ResponseEntity<>(mensagemErro, HttpStatus.BAD_REQUEST);
