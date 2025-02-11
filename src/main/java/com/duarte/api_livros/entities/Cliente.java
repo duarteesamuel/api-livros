@@ -27,7 +27,7 @@ public class Cliente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_cliente")
-	private Long idCliente;
+	private Long id;
 	
 	@Column(name = "nome_cliente")
 	@NotBlank(message = "Nome do cliente não pode ser nulo")

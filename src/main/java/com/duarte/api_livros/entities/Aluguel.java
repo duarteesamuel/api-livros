@@ -1,6 +1,5 @@
 package com.duarte.api_livros.entities;
 
-
 import java.time.LocalDate;
 
 import jakarta.persistence.Column;
@@ -8,8 +7,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,38 +17,36 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Entity
-@Table(name = "tb_livros")
+@Table(name = "tb_aluguel_livro")
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Getter
 @Setter
-public class Livro {
+public class Aluguel {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_livro")
+	@Column(name = "id_aluguel")
 	private Long id;
 	
-	@Column(name = "titulo")
-	@NotBlank(message = "Título não pode ser vazio.")
-	private String titulo;
+	@ManyToOne
+	@JoinColumn(name = "id_cliente",
+	referencedColumnName = "id_cliente",
+	nullable = false)
+	private Cliente cliente;
 	
-	@Column(name = "autor")
-	@NotBlank(message = "Autor não pode ser vazio.")
-	private String autor;
+	@ManyToOne
+	@JoinColumn(name = "id_livro",
+	referencedColumnName = "id_livro",
+	nullable = false)
+	private Livro livro;
 	
-	@Column(name = "ano_fabricacao")
+	@Column(name = "data_aluguel")
 	@PastOrPresent(message = "Data não pode ser posterior a data atual.")
-	private LocalDate anoFabricacao;
+	private LocalDate dataAluguel;
 	
-	@Column(name = "categoria")
-	@NotBlank(message = "Categoria não pode ser vazia.")
-	private String categoria;
-	
-	@Column(name = "disponibilidade")
-	@NotBlank(message = "Disponibilidade não pode ser nula.")
-	private String disponibilidade;
+	@Column(name = "data_devolucao")
+	private LocalDate dataDevolucao;
 }

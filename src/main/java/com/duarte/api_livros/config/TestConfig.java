@@ -8,8 +8,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.duarte.api_livros.entities.Aluguel;
 import com.duarte.api_livros.entities.Cliente;
 import com.duarte.api_livros.entities.Livro;
+import com.duarte.api_livros.repositories.AluguelRepository;
 import com.duarte.api_livros.repositories.ClienteRepository;
 import com.duarte.api_livros.repositories.LivroRepository;
 
@@ -23,8 +25,12 @@ public class TestConfig implements CommandLineRunner{
 	@Autowired
 	private ClienteRepository clienteRepository; 
 	
+	@Autowired
+	private AluguelRepository aluguelRepository;
+	
 	public void run(String... args) throws Exception{
 		
+		//Cadastro do livros
 		Livro livro1 = Livro.builder()
                 .titulo("O Enigma das Estrelas")
                 .autor("Lucas Pereira")
@@ -67,7 +73,7 @@ public class TestConfig implements CommandLineRunner{
 
         livroRepository.saveAll(Arrays.asList(livro1, livro2, livro3, livro4, livro5));
 		
-		
+		//Cadastro do Cliente
         Cliente cliente1 = Cliente.builder()
                 .nome("Samuel Duarte")
                 .cpf("123.456.789-11")
@@ -79,6 +85,23 @@ public class TestConfig implements CommandLineRunner{
                 .build();
 
         clienteRepository.saveAll(Arrays.asList(cliente1, cliente2));
-	}
 	
+        //Aluguel de Livros
+        Aluguel aluguel1 = Aluguel.builder()
+        		.dataAluguel(LocalDate.now())
+        		.dataDevolucao(LocalDate.now().plusDays(7))
+        		.cliente(cliente1)
+        		.livro(livro1)
+        		.build();
+        
+        Aluguel aluguel2 = Aluguel.builder()
+        		.dataAluguel(LocalDate.now())
+        		.dataDevolucao(LocalDate.now().plusDays(7))
+        		.cliente(cliente2)
+        		.livro(livro2)
+        		.build();
+        
+        aluguelRepository.saveAll(Arrays.asList(aluguel1, aluguel2));
+	}
+		
 }
