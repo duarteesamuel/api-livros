@@ -1,17 +1,17 @@
 package com.duarte.api_livros.dtos;
 
-import java.time.LocalDate;
-
 import com.duarte.api_livros.entities.Livro;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-public record LivroDTO (String titulo,
-		String autor,
-		String categoria){
-		
-	public static LivroDTO fromEntity(Livro livro) {
-		return new LivroDTO(
-				livro.getTitulo(),
-				livro.getAutor(),
-				livro.getCategoria());
+public record LivroDTO(
+	    @JsonProperty("id") Long id,
+	    @JsonProperty("titulo") String titulo,
+	    @JsonProperty("categoria") String categoria) {
+
+	    public static LivroDTO fromEntity(Livro livro) {
+	        return new LivroDTO(
+	            livro.getId(),
+	            livro.getTitulo(),
+	            livro.getCategoria());
+	    }
 	}
-}
