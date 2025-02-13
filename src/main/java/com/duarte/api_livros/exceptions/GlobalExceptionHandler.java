@@ -1,15 +1,19 @@
 package com.duarte.api_livros.exceptions;
 
 import org.springframework.http.HttpStatus;
-
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+	
+	
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<?> handleGetAllExceptions(Exception e){
+		return processarErros(e);
+	}
+
 	
 	@ExceptionHandler(LivroException.class)
 	public ResponseEntity<?> handleBibliotecaException(LivroException e){
@@ -33,6 +37,23 @@ public class GlobalExceptionHandler {
 		mensagemErro.append(e.getMessage());
 		
 		return new ResponseEntity<>(mensagemErro, HttpStatus.BAD_REQUEST);
+	}
+	
+	//Processar os erros
+	private ResponseEntity<?> processarErros(Exception exception){
+		StringBuilder mensagemErro = new StringBuilder();
+		
+		if (exception instanceof LivroException) {
+            mensagemErro.append("Erro na biblioteca: ").append(exception.getMessage());
+        } else if (exception instanceof ClienteException) {
+            mensagemErro.append("Erro no cliente: ").append(exception.getMessage());
+        } else if (exception instanceof AluguelException) {
+            mensagemErro.append("Erro no aluguel: ").append(exception.getMessage());
+        } else {
+            mensagemErro.append("Erro desconhecido: ").append(exception.getMessage());
+        }
+		
+		return new ResponseEntity<>(mensagemErro.toString(), HttpStatus.BAD_REQUEST);
 	}
 	
 }

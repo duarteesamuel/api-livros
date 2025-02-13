@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,13 +31,14 @@ public class Cliente {
 	private Long id;
 	
 	@Column(name = "nome_cliente")
-	@NotBlank(message = "Nome do cliente não pode ser nulo")
+	@NotBlank(message = "Nome do cliente não pode ser vazio.")
 	private String nome;
 	
 	@Column(name = "cpf_cliente", unique = true)
-	@NotBlank(message = "Cpf do cliente não pode ser vazio ou Repetido")
+	@NotBlank(message = "Cpf do cliente não pode ser vazio.")
+	@Size(min = 11, max = 11, message = "O CPF deve conter apenas os números.")
 	private String cpf;
-
+ 
 	@Override
 	public int hashCode() {
 		return Objects.hash(cpf);

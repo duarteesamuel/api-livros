@@ -7,5 +7,7 @@ import com.duarte.api_livros.entities.Cliente;
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long>{
-
+	
+	
+	Boolean existsByCpf(String cpf);
 }

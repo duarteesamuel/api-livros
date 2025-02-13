@@ -76,12 +76,12 @@ public class TestConfig implements CommandLineRunner{
 		//Cadastro do Cliente
         Cliente cliente1 = Cliente.builder()
                 .nome("Samuel Duarte")
-                .cpf("123.456.789-11")
+                .cpf("12345678911")
                 .build();
 
         Cliente cliente2 = Cliente.builder()
                 .nome("Gabriela Fontenele")
-                .cpf("123.654.888-01")
+                .cpf("12365488801")
                 .build();
 
         clienteRepository.saveAll(Arrays.asList(cliente1, cliente2));
