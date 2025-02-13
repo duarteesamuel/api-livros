@@ -3,6 +3,8 @@ package com.duarte.api_livros.dtos;
 import java.time.LocalDate;
 
 import com.duarte.api_livros.entities.Aluguel;
+import com.duarte.api_livros.entities.Cliente;
+import com.duarte.api_livros.entities.Livro;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -22,4 +24,5 @@ public record AluguelDTO(
 	            aluguel.getDataAluguel(),
 	            aluguel.getDataDevolucao());
 	    }
+	    
 	}

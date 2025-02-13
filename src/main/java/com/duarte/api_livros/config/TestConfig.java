@@ -44,7 +44,7 @@ public class TestConfig implements CommandLineRunner{
                 .autor("Mariana Costa")
                 .anoFabricacao(LocalDate.now())
                 .categoria("Romance")
-                .disponibilidade("Esgotado")
+                .disponibilidade("Em estoque")
                 .build();
 
         Livro livro3 = Livro.builder()
@@ -75,12 +75,12 @@ public class TestConfig implements CommandLineRunner{
 		
 		//Cadastro do Cliente
         Cliente cliente1 = Cliente.builder()
-                .nome("Samuel Duarte")
+                .nome("Samuel Duarte Moreira	")
                 .cpf("12345678911")
                 .build();
 
         Cliente cliente2 = Cliente.builder()
-                .nome("Gabriela Fontenele")
+                .nome("Dev backend iniciante")
                 .cpf("12365488801")
                 .build();
 
@@ -92,7 +92,7 @@ public class TestConfig implements CommandLineRunner{
         		.dataDevolucao(LocalDate.now().plusDays(7))
         		.cliente(cliente1)
         		.livro(livro1)
-        		.build();
+        		.build();	
         
         Aluguel aluguel2 = Aluguel.builder()
         		.dataAluguel(LocalDate.now())

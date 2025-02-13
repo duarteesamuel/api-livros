@@ -49,8 +49,6 @@ public class GlobalExceptionHandler {
             mensagemErro.append("Erro no cliente: ").append(exception.getMessage());
         } else if (exception instanceof AluguelException) {
             mensagemErro.append("Erro no aluguel: ").append(exception.getMessage());
-        } else {
-            mensagemErro.append("Erro desconhecido: ").append(exception.getMessage());
         }
 		
 		return new ResponseEntity<>(mensagemErro.toString(), HttpStatus.BAD_REQUEST);

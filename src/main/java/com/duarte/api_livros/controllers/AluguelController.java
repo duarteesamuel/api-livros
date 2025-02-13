@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.duarte.api_livros.dtos.AluguelDTO;
 import com.duarte.api_livros.entities.Aluguel;
 import com.duarte.api_livros.services.AluguelService;
 
@@ -19,6 +18,7 @@ public class AluguelController {
 	
 	@Autowired
 	private AluguelService aluguelService;
+	
 	
 	@GetMapping
 	public ResponseEntity<?> listarAlugueis(){

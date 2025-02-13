@@ -17,11 +17,12 @@ public class ClienteService {
 	private ClienteRepository clienteRepository;
 	
 	public void cadastrarCliente(Cliente cliente) {
-		
+		 
 		if(clienteRepository.existsByCpf(cliente.getCpf())) {
 			throw new ClienteException("CPF já cadastrado.");
 		};
 		
+	
 		clienteRepository.save(cliente);
 	}
 	
@@ -34,4 +35,5 @@ public class ClienteService {
 		
 		return clientes;
 	}
+	
 }
