@@ -10,6 +10,7 @@ Este projeto tem como objetivo o gerenciamento de um sistema de aluguel de livro
 * Java: Linguagem principal do projeto.
 * Spring Boot: Framework para o desenvolvimento da aplicação.
 * Bruno: Software utilizado para testar as requisições HTTP e garantir o correto funcionamento da API durante o desenvolvimento.
+* Jpa e H2 Database
 
 ## Documentação da API
 
